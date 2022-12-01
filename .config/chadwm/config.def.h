@@ -28,7 +28,7 @@ static const int scalepreview       = 4;
 static const int tag_preview        = 1;        /* 1 means enable, 0 is off */
 static const int colorfultag        = 1;        /* 0 means use SchemeSel for selected non vacant tag */
 
-static const char *fonts[]          = { "JetBrainsMono Nerd Font:style:medium:size=10",
+static const char *fonts[]          = { "Iosevka Nerd Font:style:medium:size=10",
                                         "Material Design Icons Desktop:size=10" };
 
 // theme
@@ -53,7 +53,8 @@ static const char *colors[][3]      = {
 };
 
 /* tagging */
-static char *tags[] = {"", "", "", "", ""};
+//static char *tags[] = {"", "", "", "", ""};
+static char *tags[] = {"1", "2", "3", "4", "5"};
 
 static const char* eww[] = { "eww", "open" , "eww", NULL };
 

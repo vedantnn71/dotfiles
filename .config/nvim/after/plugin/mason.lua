@@ -14,3 +14,9 @@ lspconfig.setup {
 
 local nvim_lsp = require "lspconfig"
 nvim_lsp.tailwindcss.setup {}
+nvim_lsp.svelte.setup {
+  on_attach = on_attach,
+  flags = {
+    debounce_text_changes = 150,
+  },
+}

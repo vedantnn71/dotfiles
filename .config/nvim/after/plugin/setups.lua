@@ -1,5 +1,11 @@
 require("luasnip.loaders.from_vscode").lazy_load()
 require('gitsigns').setup {}
+require("true-zen").setup {
+  integrations = {
+    tmux = true, -- hide tmux status bar in (minimalist, ataraxis)
+    lualine = true -- hide nvim-lualine (ataraxis)
+  },
+}
 
 require("lualine").setup({
   options = {
@@ -8,11 +14,10 @@ require("lualine").setup({
   }
 })
 
-local status, cmp = pcall(require, "cmp")
-if (not status) then return end
 
-local lspkind = require 'lspkind'
+require("rust-tools").setup({});
 
+--[[
 cmp.setup({
   snippet = {
     expand = function(args)
@@ -24,10 +29,6 @@ cmp.setup({
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
     ['<C-Space>'] = cmp.mapping.complete(),
     ['<C-e>'] = cmp.mapping.close(),
-    ['<CR>'] = cmp.mapping.confirm({
-      behavior = cmp.ConfirmBehavior.Replace,
-      select = true
-    }),
   }),
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
@@ -42,8 +43,9 @@ vim.cmd [[
   set completeopt=menuone,noinsert,noselect
   highlight! default link CmpItemKind CmpItemMenuDefault
 ]]
+--]]
 
-local servers = { "pyright", "tsserver", "rust-analyzer" }
+local servers = { "tsserver" }
 
 local _, nvim_lsp = pcall(require, "lspconfig")
 

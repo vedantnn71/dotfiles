@@ -2,7 +2,7 @@
 
 xrdb merge ~/.Xresources 
 xbacklight -set 10 &
-feh --bg-fill --randomize ~/Pictures/Wall/catppuccin/minimalistic &
+feh --bg-fill ~/Pictures/Wall.png &
 xset r rate 200 50 &
 picom &
 flameshot &

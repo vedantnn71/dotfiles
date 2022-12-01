@@ -18,52 +18,58 @@ local harpoon_mark = require("harpoon.mark");
 local harpoon_ui = require("harpoon.ui");
 local harpoon_tmux = require("harpoon.tmux");
 
-nnoremap("<leader>hm", harpoon_mark.add_file, {})
-nnoremap("<leader>hn", harpoon_ui.nav_next, {})
-nnoremap("<leader>hN", harpoon_ui.nav_prev, {})
 nnoremap("<leader>hq", harpoon_ui.toggle_quick_menu, {})
-nnoremap("<leader>ht1", function() harpoon_tmux.gotoTerminal(1) end, {})
-nnoremap("<leader>ht2", function() harpoon_tmux.gotoTerminal(2) end, {})
-nnoremap("<leader>ht3", function() harpoon_tmux.gotoTerminal(3) end, {})
-nnoremap("<leader>ht4", function() harpoon_tmux.gotoTerminal(4) end, {})
-nnoremap("<leader>hgh", function() harpoon_ui.nav_file(1) end, {})
-nnoremap("<leader>hgj", function() harpoon_ui.nav_file(2) end, {})
-nnoremap("<leader>hgk", function() harpoon_ui.nav_file(3) end, {})
-nnoremap("<leader>hgl", function() harpoon_ui.nav_file(4) end, {})
+nnoremap("<leader>th", function() harpoon_tmux.gotoTerminal(1) end, {})
+nnoremap("<leader>tj", function() harpoon_tmux.gotoTerminal(2) end, {})
+nnoremap("<leader>tk", function() harpoon_tmux.gotoTerminal(3) end, {})
+nnoremap("<leader>tl", function() harpoon_tmux.gotoTerminal(4) end, {})
+
+nnoremap("<leader>a", harpoon_mark.add_file, {})
+nnoremap("<C-H>", function() harpoon_ui.nav_file(1) end, {})
+nnoremap("<C-J>", function() harpoon_ui.nav_file(2) end, {})
+nnoremap("<C-K>", function() harpoon_ui.nav_file(3) end, {})
+nnoremap("<C-L>", function() harpoon_ui.nav_file(4) end, {})
+nnoremap("<C-N>", harpoon_ui.nav_next, {})
+nnoremap("<C-P>", harpoon_ui.nav_prev, {})
 
 local on_attach = function(client, bufnr)
   vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
   
   local bufopts = { noremap = true, silent =true, buffer = bufnr }
 
-  nnoremap("<leader>gd", vim.lsp.buf.definition, bufopts)
-  nnoremap("<leader>gi", vim.lsp.buf.implementation, bufopts)
-  nnoremap("<leader>gr", vim.lsp.buf.references, bufopts)
-  nnoremap("<leader>gD", vim.lsp.buf.declaration, bufopts)
-  nnoremap("gt", vim.lsp.buf.type_definition, bufopts)
-  nnoremap("<leader>ga", vim.lsp.buf.code_action, bufopts)
-  nnoremap("<leader>gf", vim.lsp.buf.formatting, bufopts)
-  nnoremap("<leader>ge", vim.diagnostic.open_float, opts)
-  nnoremap("[d", vim.diagnostic.goto_prev, opts)
-  nnoremap("]d", vim.diagnostic.goto_next, opts)
-
 end
 
 local status, saga = pcall(require, "lspsaga")
 if (not status) then return end
 
-saga.init_lsp_saga {
-  server_filetype_map = {
-    typescript = 'typescript'
-  }
-}
+saga.init_lsp_saga() 
 
 local opts = { noremap = true, silent = true }
 
-nnoremap('<C-j>', '<Cmd>Lspsaga diagnostic_jump_next<CR>', opts)
+nnoremap('gh', '<Cmd>Lspsaga lsp_finder<CR>', opts)
+nnoremap('gj', '<Cmd>Lspsaga diagnostic_jump_next<CR>', opts)
 nnoremap('K', '<Cmd>Lspsaga hover_doc<CR>', opts)
-nnoremap('<leader>gd', '<Cmd>Lspsaga lsp_finder<CR>', opts)
-inoremap('<C-k>', '<Cmd>Lspsaga signature_help<CR>', opts)
-nnoremap('<leader>gp', '<Cmd>Lspsaga preview_definition<CR>', opts)
-nnoremap('<leader>gR', '<Cmd>Lspsaga rename<CR>', opts)
+--nnoremap('gd', '<Cmd>Lspsaga lsp_finder<CR>', opts)
+nnoremap('gk', '<Cmd>Lspsaga signature_help<CR>', opts)
+nnoremap('gp', '<Cmd>Lspsaga peek_definition<CR>', opts)
+nnoremap('ga', '<Cmd>Lspsaga code_action<CR>', opts)
+nnoremap('ge', '<Cmd>Lspsaga show_line_diagnostics<CR>', opts)
+nnoremap("<leader>o", "<cmd>LSoutlineToggle<CR>", opts)
+nnoremap('gR', '<Cmd>Lspsaga rename<CR>', opts)
+-- open lazygit in lspsaga float terminal
+nnoremap("<leader>d", "<cmd>Lspsaga open_floaterm lazygit<CR>", opts)
+-- close floaterm
+nnoremap("<leader>d", [[<C-\><C-n><cmd>Lspsaga close_floaterm<CR>]], opts)
+
+nnoremap('gF', '<Cmd>!prettier --write %<CR>', opts)
+
+nnoremap("<leader>e", "<cmd>NvimTreeToggle<CR>", opts)
+
+local api = vim.api
+
+nnoremap("<leader>zn", ":TZNarrow<CR>", {})
+nnoremap("<leader>zn", ":'<,'>TZNarrow<CR>", {})
+nnoremap("<leader>zf", ":TZFocus<CR>", {})
+nnoremap("<leader>zm", ":TZMinimalist<CR>", {})
+nnoremap("<leader>za", ":TZAtaraxis<CR>", {})
 
