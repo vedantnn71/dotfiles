@@ -6,7 +6,7 @@
 interval=0
 
 # load colors
-. ~/.config/chadwm/scripts/bar_themes/catppuccin
+. ~/.config/chadwm/scripts/bar_themes/tokyonight
 
 cpu() {
   cpu_val=$(grep -o "^[^ ]*" /proc/loadavg)
@@ -16,13 +16,39 @@ cpu() {
 }
 
 pkg_updates() {
-  updates=$(checkupdates | wc -l)   # arch
+  # updates=$(doas xbps-install -un | wc -l) # void
+  # updates=$(checkupdates | wc -l)   # arch
+  updates=$(aptitude search '~U' | wc -l)  # apt (ubuntu,debian etc)
 
   if [ -z "$updates" ]; then
-    printf "^c$green^  Fully Updated"
+    printf "  ^c$green^    Fully Updated"
   else
-    printf "^c$green^  $updates"" updates"
+    printf "  ^c$green^    $updates"" updates"
   fi
+}
+
+battery() {
+  CHARGE=$(cat /sys/class/power_supply/BAT0/capacity)
+  STATUS=$(cat /sys/class/power_supply/BAT0/status)
+
+  if [ "$STATUS" = "Charging" ]; then
+    printf "^c$green^  $CHARGE%%"
+  else
+    if [ "$CHARGE" -gt 75 ]; then
+      printf "^c$green^    $CHARGE%%"
+    elif [ "$CHARGE" -gt 50 ]; then
+      printf "^c$yellow^    $CHARGE%%"
+    elif [ "$CHARGE" -gt 25 ]; then
+      printf "^c$yellow^    $CHARGE%%"
+    else
+      printf "^c$red^    $CHARGE%%"
+    fi
+  fi
+}
+
+brightness() {
+  printf "^c$red^   "
+  printf "^c$red^%.0f\n" $(cat /sys/class/backlight/*/brightness)
 }
 
 mem() {
@@ -47,5 +73,5 @@ while true; do
   [ $interval = 0 ] || [ $(($interval % 3600)) = 0 ] && updates=$(pkg_updates)
   interval=$((interval + 1))
 
-  sleep 1 && xsetroot -name "$updates $(brightness) $(cpu) $(mem) $(wlan) $(clock)"
+  sleep 1 && xsetroot -name "$updates $(battery) $(brightness) $(cpu) $(mem) $(wlan) $(clock)"
 done
