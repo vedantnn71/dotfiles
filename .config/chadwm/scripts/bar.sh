@@ -31,18 +31,22 @@ battery() {
   CHARGE=$(cat /sys/class/power_supply/BAT0/capacity)
   STATUS=$(cat /sys/class/power_supply/BAT0/status)
 
+  # Show charging icon if charging or different battery icon according to battery charge
+  # Icon should be of material design
   if [ "$STATUS" = "Charging" ]; then
     printf "^c$green^  $CHARGE%%"
+  elif [ "$CHARGE" -gt 90 ]; then
+    printf "^c$green^    $CHARGE%%"
+  elif [ "$CHARGE" -gt 70 ]; then
+    printf "^c$green^    $CHARGE%%"
+  elif [ "$CHARGE" -gt 50 ]; then
+    printf "^c$green^    $CHARGE%%"
+  elif [ "$CHARGE" -gt 30 ]; then
+    printf "^c$green^    $CHARGE%%"
+  elif [ "$CHARGE" -gt 10 ]; then
+    printf "^c$green^    $CHARGE%%"
   else
-    if [ "$CHARGE" -gt 75 ]; then
-      printf "^c$green^    $CHARGE%%"
-    elif [ "$CHARGE" -gt 50 ]; then
-      printf "^c$yellow^    $CHARGE%%"
-    elif [ "$CHARGE" -gt 25 ]; then
-      printf "^c$yellow^    $CHARGE%%"
-    else
-      printf "^c$red^    $CHARGE%%"
-    fi
+    printf "^c$green^    $CHARGE%%"
   fi
 }
 

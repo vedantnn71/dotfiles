@@ -3,7 +3,7 @@
 xrdb merge ~/.Xresources 
 xbacklight -set 10 &
 feh --bg-fill --random ~/Pictures/Wallpapers &
-xset r rate 200 60 &
+xset r rate 200 50 &
 picom &
 flameshot &
 nm-applet &
