@@ -23,3 +23,5 @@ lspconfig.setup {
 
 lsp.tsserver.setup(coq.lsp_ensure_capabilities())
 
+vim.cmd("COQnow --shut-up")
+

@@ -1,52 +1,48 @@
-vim.cmd [[packadd packer.nvim]]
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 
-return require("packer").startup(function(use)
-  use "wbthomason/packer.nvim"
-  use "neovim/nvim-lspconfig" 
-  use "wakatime/vim-wakatime"
-  use "github/copilot.vim"
-  use "onsails/lspkind.nvim"
-  use "nvim-treesitter/nvim-treesitter"
-  use "windwp/nvim-ts-autotag"
-  use "windwp/nvim-autopairs"
-  use "nvim-telescope/telescope-file-browser.nvim"
-  use "glepnir/lspsaga.nvim"
-  use "lewis6991/gitsigns.nvim"
-  use "simrat39/rust-tools.nvim"
-  use "andweeb/presence.nvim"
-  use "ThePrimeagen/harpoon"
-  use "ggandor/leap.nvim"
-  use "Pocco81/true-zen.nvim"
-  use "folke/tokyonight.nvim"
-  use "norcalli/nvim-colorizer.lua"
-  use {
-    "ms-jpq/coq_nvim",
-    branch = "coq"
-  }
-  use {
-    "ms-jpq/coq.artifacts", 
-    branch = "artifacts"
-  }
-  use {
-    "ms-jpq/coq.thirdparty", 
-    branch = "3p"
-  }
-  use { "catppuccin/nvim", as = "catppuccin" }
-  use { "williamboman/mason.nvim" }
-  use { "williamboman/mason-lspconfig.nvim" }
-  use ({"L3MON4D3/LuaSnip", tag = "v<CurrentMajor>.*"})
-  use {
-    "nvim-lualine/lualine.nvim",
-    requires = { "kyazdani42/nvim-web-devicons", opt = true }
-  }
-  use {
-    "nvim-telescope/telescope.nvim", tag = "0.1.0",
-    requires = {{ "nvim-lua/plenary.nvim" }}
-  }
-  use {
-    "nvim-tree/nvim-tree.lua",
-    requires = {
-      "nvim-tree/nvim-web-devicons", -- optional, for file icons
-    },
-  }
-end)
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
+end
+
+vim.opt.rtp:prepend(lazypath)
+
+require("lazy").setup({
+  "folke/neodev.nvim",
+  "wbthomason/packer.nvim",
+  "neovim/nvim-lspconfig",
+  "wakatime/vim-wakatime",
+  "github/copilot.vim",
+  "onsails/lspkind.nvim",
+  "nvim-treesitter/nvim-treesitter",
+  "windwp/nvim-ts-autotag",
+  "windwp/nvim-autopairs",
+  "nvim-telescope/telescope-file-browser.nvim",
+  "glepnir/lspsaga.nvim",
+  "lewis6991/gitsigns.nvim",
+  "simrat39/rust-tools.nvim",
+  "andweeb/presence.nvim",
+  "ThePrimeagen/harpoon",
+  "ggandor/leap.nvim",
+  "Pocco81/true-zen.nvim",
+  "folke/tokyonight.nvim",
+  "norcalli/nvim-colorizer.lua",
+  "nvim-lua/plenary.nvim",
+  "kyazdani42/nvim-web-devicons",
+  "nvim-tree/nvim-tree.lua",
+  "williamboman/mason.nvim",
+  "williamboman/mason-lspconfig.nvim",
+  "nvim-lualine/lualine.nvim",
+  { "folke/neoconf.nvim", cmd = "Neoconf" },
+  { "ms-jpq/coq_nvim", branch = "coq" },
+  { "ms-jpq/coq.artifacts", branch = "artifacts" },
+  { "ms-jpq/coq.thirdparty", branch = "3p" },
+  { "L3MON4D3/LuaSnip", tag = "v<CurrentMajor>.*" },
+  { "nvim-telescope/telescope.nvim", tag = "0.1.0" },
+})
