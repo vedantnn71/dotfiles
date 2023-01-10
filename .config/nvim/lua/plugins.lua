@@ -1,5 +1,6 @@
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 
+
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
     "git",
@@ -39,10 +40,16 @@ require("lazy").setup({
   "williamboman/mason.nvim",
   "williamboman/mason-lspconfig.nvim",
   "nvim-lualine/lualine.nvim",
+  "saadparwaiz1/cmp_luasnip",
+  "neovim/nvim-lspconfig",
+  "hrsh7th/cmp-nvim-lsp",
+  "hrsh7th/cmp-buffer",
+  "hrsh7th/cmp-path",
+  "hrsh7th/cmp-cmdline",
+  "hrsh7th/nvim-cmp",
+  "petertriho/cmp-git",
+  "onsails/lspkind.nvim",
   { "folke/neoconf.nvim", cmd = "Neoconf" },
-  { "ms-jpq/coq_nvim", branch = "coq" },
-  { "ms-jpq/coq.artifacts", branch = "artifacts" },
-  { "ms-jpq/coq.thirdparty", branch = "3p" },
   { "L3MON4D3/LuaSnip", tag = "v<CurrentMajor>.*" },
   { "nvim-telescope/telescope.nvim", tag = "0.1.0" },
 })
