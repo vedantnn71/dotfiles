@@ -36,7 +36,7 @@ require("lazy").setup({
   "norcalli/nvim-colorizer.lua",
   "nvim-lua/plenary.nvim",
   "kyazdani42/nvim-web-devicons",
-  "nvim-tree/nvim-tree.lua",
+  --"nvim-tree/nvim-tree.lua",
   "williamboman/mason.nvim",
   "williamboman/mason-lspconfig.nvim",
   "nvim-lualine/lualine.nvim",
@@ -49,6 +49,17 @@ require("lazy").setup({
   "hrsh7th/nvim-cmp",
   "petertriho/cmp-git",
   "onsails/lspkind.nvim",
+  "tpope/vim-fugitive",
+  {
+    'rose-pine/neovim',
+    name = 'rose-pine',
+    lazy = false,
+    priority = 1000,
+    config = function()
+      require("rose-pine").setup()
+      vim.cmd('colorscheme rose-pine')
+    end
+  },
   { "folke/neoconf.nvim", cmd = "Neoconf" },
   { "L3MON4D3/LuaSnip", tag = "v<CurrentMajor>.*" },
   { "nvim-telescope/telescope.nvim", tag = "0.1.0" },
