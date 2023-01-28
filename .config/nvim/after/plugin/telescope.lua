@@ -1,23 +1,13 @@
 local nnoremap = require("keymap").nnoremap
-
-local status, telescope = pcall(require, "telescope")
-if (not status) then return end
-
-local actions = require('telescope.actions')
+local inoremap = require("keymap").inoremap
 local builtin = require("telescope.builtin")
 
-local function telescope_buffer_dir()
-  return vim.fn.expand('%:p:h')
-end
+nnoremap("<leader>pv", "<cmd>Ex<Cr>")
+nnoremap("<leader>ff", builtin.find_files, {})
+nnoremap("<leader>fg", builtin.live_grep, {})
+nnoremap("<leader>fb", builtin.buffers, {})
+nnoremap("<leader>fh", builtin.help_tags, {})
+nnoremap("<leader>ft", builtin.colorscheme, {})
 
-local fb_actions = require "telescope".extensions.file_browser.actions
+nnoremap("<leader>gb", builtin.git_branches, {})
 
-telescope.setup {
-  defaults = {
-    mappings = {
-      n = {
-        ["q"] = actions.close
-      },
-    },
-  },
-}
