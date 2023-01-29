@@ -46,16 +46,20 @@ inputbar {
   spacing  : 8px;
   padding  : 4px 8px;
   children : [ icon-search, entry ];
-
   background-color: @bg0;
 }
 
 icon-search, entry, element-icon, element-text {
+
+
+  color       : @fg0;
+  text-color       : @fg0;
   vertical-align: 0.5;
 }
 
 icon-search {
   expand   : false;
+  text-color       : @fg0;
   filename : "search-symbolic";
   size     : 14px;
 }

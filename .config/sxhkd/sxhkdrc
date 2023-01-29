@@ -10,6 +10,12 @@ super + Return
 super + c
   rofi -show drun
 
+super + w 
+  ~/.local/bin/rofi-wifi-menu
+
+super + ctrl + b 
+  ~/.local/bin/rofi-bluetooth-menu
+
 # program launcher
 super + @space
   rofi -show drun
@@ -137,9 +143,30 @@ super + shift + m
 super + shift + f 
   pcmanfm
 
+super + n 
+  feh --bg-fill --randomize ~/Pictures/pixelated-wall/
 
-super + ctrl + b 
-  killall polybar
+super + ctrl + n 
+  nitrogen 
 
-super + alt + b 
-  ~/.config/polybar/run.sh &
+XF86MonBrightness{Up,Down}
+  xbacklight -{inc,dec} 10
+
+XF86Audio{LowerVolume,RaiseVolume,Mute}
+  amixer -q set Master {5%+,5%-} unmute
+
+XF86AudioPlay
+  playerctl play-pause
+
+# Screenshot keys
+Print
+  maim --select | xclip -selection clipboard -t image/png
+
+shift + Print
+  maim ~/Pictures/Screenshots/$(date +%Y-%m-%d-%H-%M-%S).png
+
+super + d 
+  discord
+
+super + e 
+  rofimoji
