@@ -1,0 +1,33 @@
+#! /bin/sh
+
+pgrep -x sxhkd > /dev/null || sxhkd &
+pgrep -x picom > /dev/null || picom &
+pgrep -x dunst > /dev/null || dunst &
+pgrep -x nm-applet > /dev/null || nm-applet &
+pgrep -x mailspring > /dev/null || mailspring --background &
+pgrep -x flameshot > /dev/null || flameshot &
+pgrep -x redshift > /dev/null || redshift &
+pgrep -x dropbox > /dev/null || dropbox &
+pgrep -x syncthing > /dev/null || syncthing &
+pgrep -x polybar > /dev/null || ~/.config/polybar/run.sh &
+pgrep -x feh > /dev/null || feh --bg-fill --randomize ~/Pictures/pixelated-wall/ &
+pgrep -x xsetroot > /dev/null || xsetroot -cursor_name left_ptr &
+
+bspc monitor -d I II III IV V VI VII 
+
+bspc config border_width         1
+bspc config window_gap          16
+
+bspc config active_border_color         "#ebbcba"
+bspc config focused_border_color         "#ebbcba"
+bspc config normal_border_color         "#26233a"
+
+bspc config split_ratio          0.52
+bspc config borderless_monocle   true
+bspc config gapless_monocle      true
+
+bspc rule -a Gimp desktop='^8' state=floating follow=on
+bspc rule -a brave-browser desktop='^1'
+bspc rule -a mplayer2 state=floating
+bspc rule -a Kupfer.py focus=on
+bspc rule -a Screenkey manage=off
