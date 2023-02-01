@@ -1,0 +1,38 @@
+#!/bin/bash
+
+BATTERY_LEVEL=$(acpi -b | grep -P -o '[0-9]+(?=%)')
+BATTERY_STATUS=$(acpi -b | grep -P -o 'Discharging|Charging|Unknown')
+BATTERY_LOW=19
+BATTERY_CRITICAL=5
+CHECK_TIME=30
+
+if [ "$BATTERY_STATUS" = "Unknown" ]; then
+  echo "[error] - battery status is unknown"
+  exit 1
+fi
+
+check() {
+  if [ "$BATTERY_STATUS" = "Discharging" ] && [ "$BATTERY_LEVEL" -le "$BATTERY_LOW" ]; then
+    dunstify "Battery low" "Battery level is $BATTERY_LEVEL%"
+  elif [ "$BATTERY_STATUS" = "Discharging" ] && [ "$BATTERY_LEVEL" -le "$BATTERY_CRITICAL" ]; then
+    dunstify "Battery critical" "Battery level is $BATTERY_LEVEL%"
+  elif [ "$BATTERY_STATUS" = "Charging" ] && [ "$BATTERY_LEVEL" -ge 100 ]; then
+    dunstify "Battery full" "Battery level is $BATTERY_LEVEL%"
+  fi
+}
+
+echo "[log] - battery check started"
+echo "[info] - will check in every $CHECK_TIME seconds"
+
+while true; do
+  if [ "$1" = "-v" ] || [ "$1" = "--verbose" ]; then
+    echo "[verbose]: battery level = $BATTERY_LEVEL"
+    echo "[verbose]: battery status = $BATTERY_STATUS"
+    echo "[verbose]: battery low = $BATTERY_LOW"
+    echo "[verbose]: battery critical = $BATTERY_CRITICAL"
+  fi
+
+  check
+  sleep $CHECK_TIME
+done
+

@@ -170,3 +170,7 @@ super + d
 
 super + e 
   rofimoji
+
+super + shift + p 
+  rofi-pass
+
