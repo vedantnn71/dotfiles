@@ -9,11 +9,11 @@ pgrep -x flameshot > /dev/null || flameshot &
 pgrep -x redshift > /dev/null || redshift &
 pgrep -x dropbox > /dev/null || dropbox &
 pgrep -x syncthing > /dev/null || syncthing &
-pgrep -x polybar > /dev/null || ~/.config/polybar/run.sh &
+~/.config/polybar/run.sh &
 pgrep -x feh > /dev/null || feh --bg-fill --randomize ~/Pictures/pixelated-wall/ &
 pgrep -x xsetroot > /dev/null || xsetroot -cursor_name left_ptr &
 
-bspc monitor -d I II III IV V VI VII 
+bspc monitor -d I II III IV V VI VII VIII IX
 
 bspc config border_width         1
 bspc config window_gap          16
