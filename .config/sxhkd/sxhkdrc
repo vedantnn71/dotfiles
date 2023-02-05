@@ -56,8 +56,8 @@ super + g
 #
 
 # set the window state
-super + {t,shift + t,s,f}
-	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
+super + {t,shift + t}
+	bspc node -t {tiled,pseudo_tiled}
 
 # set the node flags
 super + ctrl + {m,x,y,z}
@@ -140,9 +140,6 @@ super + shift + b
 super + shift + m 
   mailspring
 
-super + shift + f 
-  pcmanfm
-
 super + n 
   feh --bg-fill --randomize ~/Pictures/pixelated-wall/
 
@@ -165,7 +162,7 @@ Print
 shift + Print
   maim ~/Pictures/Screenshots/$(date +%Y-%m-%d-%H-%M-%S).png
 
-super + d 
+super + shift + d 
   discord
 
 super + e 
@@ -174,3 +171,16 @@ super + e
 super + shift + p 
   rofi-pass
 
+super + d
+  if [ -z "$(bspc query -N -n focused.floating)" ]; then \
+    bspc node focused -t floating; \
+  else \
+    bspc node focused -t tiled; \
+  fi
+
+super + f
+  if [ -z "$(bspc query -N -n focused.fullscreen)" ]; then \
+    bspc node focused -t fullscreen; \
+  else \
+    bspc node focused -t tiled; \
+  fi
