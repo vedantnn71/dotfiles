@@ -1,5 +1,4 @@
 require("presence"):setup({
-    -- General options
     auto_update         = true,                       -- Update activity based on autocmd events (if `false`, map or manually execute `:lua package.loaded.presence:update()`)
     neovim_image_text   = "The greatest editor of all time", -- Text displayed when hovered over the Neovim image
     main_image          = "neovim",                   -- Main image display (either "neovim" or "file")
@@ -21,3 +20,4 @@ require("presence"):setup({
     workspace_text      = "Working on %s",            -- Format string rendered when in a git repository (either string or function(project_name: string|nil, filename: string): string)
     line_number_text    = "Line %s out of %s",        -- Format string rendered when `enable_line_number` is set to true (either string or function(line_number: number, line_count: number): string)
 })
+

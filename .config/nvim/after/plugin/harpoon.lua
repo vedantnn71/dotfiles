@@ -17,3 +17,4 @@ nnoremap("<C-L>", function() harpoon_ui.nav_file(4) end, {})
 nnoremap("<C-N>", harpoon_ui.nav_next, {})
 nnoremap("<C-P>", harpoon_ui.nav_prev, {})
 
+
